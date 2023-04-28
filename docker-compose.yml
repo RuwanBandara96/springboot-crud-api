@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cameldb
+  app:
+    container_name: crud-api
+    image: 'ruwan96/crud-api'
+    build: src
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - spring.datasource.password=123456
+      - spring.datasource.url=jdbc:postgresql://db:5432/cameldb
+      - spring.datasource.username=postgres

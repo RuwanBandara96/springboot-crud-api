@@ -54,4 +54,7 @@ public class EventService {
 
 
     }
+
+    public void saveEvent(Event newEvent) {
+    }
 }

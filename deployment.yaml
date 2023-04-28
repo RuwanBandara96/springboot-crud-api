@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crud-api
+  template:
+    metadata:
+      labels:
+        app: crud-api
+    spec:
+      containers:
+        - name: crud-api
+          image: spring-crud-api:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: spring_datasource_password
+              value: "123456"
+            - name: spring_datasource_url
+              value: "jdbc:postgresql://postgresqldb:5432/cameldb"
+            - name: spring_datasource_username
+              value: "postgres"
+            - name: CAMEL_COMPONENT_SERVLET_MAPPING_CONTEXTPATH
+              value: "/rest/*"
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: "create-drop"
+            - name: SPRING_JPA_HIBERNATE_SHOW_SQL
+              value: "true"
+            - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+              value: "org.hibernate.dialect.PostgreSQLDialect"
